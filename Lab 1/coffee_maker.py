@@ -58,7 +58,7 @@ coffee_types = {AMERICANO: {WATER: 10, COFFEE: 10, MILK: 0},\
                 CAPPUCCINO: {WATER: 5, COFFEE: 10, MILK: 10},\
                 ESPRESSO: {WATER: 5, COFFEE: 10, MILK: 0}}
 
-status_format = "water: {WATER}% \ncoffee: {COFFEE}% \nmilk: {MILK}%"
+STATUS_FORMAT = "water: {WATER}% \ncoffee: {COFFEE}% \nmilk: {MILK}%"
 
 """
 Example result/interactions:
@@ -88,26 +88,32 @@ Enter command:
 exit
 """
 
-def list():
+def list_command():
+    """ Displays coffee types """
     print(ESPRESSO + ", " + AMERICANO + ", " +  CAPPUCCINO)
 
 def print_status():
-    print(status_format.format(WATER = RESOURCES[WATER], COFFEE = RESOURCES[COFFEE], MILK = RESOURCES[MILK]))
+    """ Displays info about the remaining resources """
+    print(STATUS_FORMAT.format(WATER = RESOURCES[WATER],\
+         COFFEE = RESOURCES[COFFEE], MILK = RESOURCES[MILK]))
 
 
-def make_coffe_aux(type):
-    RESOURCES[WATER] -= coffee_types[type][WATER]
-    RESOURCES[COFFEE] -= coffee_types[type][COFFEE]
-    RESOURCES[MILK] -= coffee_types[type][MILK]
+def make_coffe_aux(type_of_coffee):
+    """ Consumes the resources needed for coffee - Auxiliary function"""
+    RESOURCES[WATER] -= coffee_types[type_of_coffee][WATER]
+    RESOURCES[COFFEE] -= coffee_types[type_of_coffee][COFFEE]
+    RESOURCES[MILK] -= coffee_types[type_of_coffee][MILK]
 
 
 def make_coffee():
+    """ Consumes the resources needed for coffee - Main function"""
     print("Which coffee?")
-    type = sys.stdin.readline()[:-1]
-    make_coffe_aux(type)
+    type_of_coffee = sys.stdin.readline()[:-1]
+    make_coffe_aux(type_of_coffee)
     print("Here's your espresso!")
 
 def refill_aux(water, coffee, milk):
+    """ Refills all the resources - Auxiliary function"""
     if water:
         RESOURCES[WATER] = 100
     if coffee:
@@ -117,6 +123,7 @@ def refill_aux(water, coffee, milk):
 
 
 def refill():
+    """ Refills all the resources """
     print("Which resource? Type 'all' for refilling everything")
     who = sys.stdin.readline()[:-1]
     if who == "all":
@@ -129,14 +136,15 @@ def refill():
         refill_aux(False, False, True)
 
 def main():
+    """ Main function """
     print("I'm a smart coffee maker")
     print("Enter command:")
 
     for line in sys.stdin:
         if line[:-1] == EXIT:
             break
-        elif line[:-1] == LIST_COFFEES:
-            list()
+        if line[:-1] == LIST_COFFEES:
+            list_command()
         elif line[:-1] == RESOURCE_STATUS:
             print_status()
         elif line[:-1] == MAKE_COFFEE:
@@ -148,7 +156,7 @@ def main():
             print(*commands, sep=", ")
             print("\nAvailable coffees are:")
             print(*coffee_list, sep=", ")
-        
+
         print()
 
 
