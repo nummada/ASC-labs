@@ -1,7 +1,6 @@
 """
 A command-line controlled coffee maker.
 """
-# this is a test
 
 import sys
 
@@ -44,6 +43,9 @@ ESPRESSO = "espresso"
 AMERICANO = "americano"
 CAPPUCCINO = "cappuccino"
 
+coffee_list = [ESPRESSO, AMERICANO, CAPPUCCINO]
+
+
 # Resources examples
 WATER = "water"
 COFFEE = "coffee"
@@ -51,6 +53,12 @@ MILK = "milk"
 
 # Coffee maker's resources - the values represent the fill percents
 RESOURCES = {WATER: 100, COFFEE: 100, MILK: 100}
+
+coffee_types = {AMERICANO: {WATER: 10, COFFEE: 10, MILK: 0},\
+                CAPPUCCINO: {WATER: 5, COFFEE: 10, MILK: 10},\
+                ESPRESSO: {WATER: 5, COFFEE: 10, MILK: 0}}
+
+status_format = "water: {WATER}% \ncoffee: {COFFEE}% \nmilk: {MILK}%"
 
 """
 Example result/interactions:
@@ -80,7 +88,69 @@ Enter command:
 exit
 """
 
-print("I'm a simple coffee maker")
-print("Press enter")
-sys.stdin.readline()
-print("Teach me how to make coffee...please...")
+def list():
+    print(ESPRESSO + ", " + AMERICANO + ", " +  CAPPUCCINO)
+
+def print_status():
+    print(status_format.format(WATER = RESOURCES[WATER], COFFEE = RESOURCES[COFFEE], MILK = RESOURCES[MILK]))
+
+
+def make_coffe_aux(type):
+    RESOURCES[WATER] -= coffee_types[type][WATER]
+    RESOURCES[COFFEE] -= coffee_types[type][COFFEE]
+    RESOURCES[MILK] -= coffee_types[type][MILK]
+
+
+def make_coffee():
+    print("Which coffee?")
+    type = sys.stdin.readline()[:-1]
+    make_coffe_aux(type)
+    print("Here's your espresso!")
+
+def refill_aux(water, coffee, milk):
+    if water:
+        RESOURCES[WATER] = 100
+    if coffee:
+        RESOURCES[COFFEE] = 100
+    if milk:
+        RESOURCES[MILK] = 100
+
+
+def refill():
+    print("Which resource? Type 'all' for refilling everything")
+    who = sys.stdin.readline()[:-1]
+    if who == "all":
+        refill_aux(True, True, True)
+    elif who == "water":
+        refill_aux(True, False, False)
+    elif who == "coffee":
+        refill_aux(False, True, False)
+    elif who == "milk":
+        refill_aux(False, False, True)
+
+def main():
+    print("I'm a smart coffee maker")
+    print("Enter command:")
+
+    for line in sys.stdin:
+        if line[:-1] == EXIT:
+            break
+        elif line[:-1] == LIST_COFFEES:
+            list()
+        elif line[:-1] == RESOURCE_STATUS:
+            print_status()
+        elif line[:-1] == MAKE_COFFEE:
+            make_coffee()
+        elif line[:-1] == REFILL:
+            refill()
+        elif line[:-1] == HELP:
+            print("\nAvailable commands are:")
+            print(*commands, sep=", ")
+            print("\nAvailable coffees are:")
+            print(*coffee_list, sep=", ")
+        
+        print()
+
+
+if __name__ == "__main__":
+    main()
