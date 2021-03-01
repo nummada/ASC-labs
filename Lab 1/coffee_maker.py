@@ -1,6 +1,7 @@
 """
 A command-line controlled coffee maker.
 """
+# this is a test
 
 import sys
 
