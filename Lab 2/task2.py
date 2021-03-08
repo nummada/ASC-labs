@@ -17,11 +17,16 @@ class MyThread(Thread):
         self.nr = nr
         self.received_number = received_number
 
-    # thread function
+    # thread function - prints the thread's id and a random received number
     def run(self):
         print ("Hello, I'm Thread-" + str(self.nr), " and I received the number", self.received_number)
 
 if __name__ == "__main__":
+    # check the number of command line arguments
+    if len(sys.argv) != 2:
+        print("Wrong number of arguments!")
+        exit()
+    
     seed()
     
     # threads list
