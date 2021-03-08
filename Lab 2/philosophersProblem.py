@@ -15,6 +15,7 @@ class Philosofer(Thread):
     def run(self):
         """run function from Thread"""
         
+        # the first philosopher takes first the left fork, then the right fork
         if self.thread_id == 0:
             forks[self.left_idx].acquire()
             forks[self.right_idx].acquire()
