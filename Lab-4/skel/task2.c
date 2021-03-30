@@ -19,12 +19,10 @@ int main(int argc, char* argv[])
 
     long n = atol(argv[1]);
 
-    // TODO
     // alocati dinamic o matrice de n x n elemente de tip struct particle
     // verificati daca operatia a reusit
     struct particle *vect = calloc(n * n, sizeof(struct particle));
 
-    // TODO
     // populati matricea alocata astfel:
     // *liniile pare contin particule cu toate componentele vitezei pozitive
     //   -> folositi modulo 128 pentru a limita rezultatului lui rand()
@@ -45,7 +43,6 @@ int main(int argc, char* argv[])
         }
     }
 
-    // TODO
     // scalati vitezele tuturor particulelor cu 0.5
     //   -> folositi un cast la int8_t* pentru a parcurge vitezele fara
     //      a fi nevoie sa accesati individual componentele v_x, v_y, si v_z

@@ -26,7 +26,6 @@ int main(void)
     struct a a2, a3, a4, a5;
     struct b b2, b3, b4, b5;
 
-    // TODO
     // afisati pe cate o linie adresele lui i1, l1, a1, b1
     // apoi i2, l2, a2, b2 etc.
     // HINT folositi %p pentru a afisa o adresa
@@ -36,14 +35,12 @@ int main(void)
     printf("%p %p %p %p\n", &a2, &a3, &a4, &a5);
     printf("%p %p %p %p\n", &b2, &b3, &b4, &b5);
 
-    // TODO
     // de dimensiune credeti ca au structurile a si b?
     // afisati dimensiunea lor folosind operatorul sizeof
     // explicati rezultatul
 
     printf("size struct a: [%d], size struct b: [%d]", sizeof(struct a), sizeof(struct b));
 
-    // TODO
     // alocati un vector cu 10 elemente de tip float aliniat la 2^5 bytes
     
     // REZOLVARE

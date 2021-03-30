@@ -18,13 +18,11 @@ int main(int argc, char* argv[])
     int64_t n = atoi(argv[2]);  // dimensiunea vectorului
     int64_t c = atoi(argv[3]);  // numarul de iteratii
 
-    // TODO alocari si initializari
     char *a = calloc(n, sizeof(char));
     
     struct timeval start, end;
     gettimeofday(&start, NULL);
 
-    // TODO bucla de test
     // in variabila ops calculati numarul de operatii efectuate
 
     int64_t ops = 0;
